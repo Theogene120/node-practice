@@ -1,4 +1,5 @@
 const fs = require('fs')
+const { escape } = require('querystring')
 
 // read file
 
@@ -13,6 +14,28 @@ const fs = require('fs')
 
 // Write on file
 
-fs.writeFile('./docs/blog1.txt', 'Hello, World', () => {
-    console.log('Text written succefull')
-})
+// fs.writeFile('./docs/blog1.txt', 'Hello, World', () => {
+//     console.log('Text written succefull')
+// })
+
+// fs.writeFile('./docs/blog2.txt', 'Hello, again', () => {
+//     console.log('Text written succefull')
+// })
+
+// Create folder
+
+if(!fs.existsSync('./assets')){
+    fs.mkdir('./assets', () => {
+        console.log('folder created succefull')
+    })
+}else{
+    fs.rmdir('./assets', (err) => {
+        if(err) 
+            console.log(err)
+        else
+            console.log('file deleted succefull')
+    })
+}
+
+// Delete file
+
