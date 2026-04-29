@@ -24,18 +24,32 @@ const { escape } = require('querystring')
 
 // Create folder
 
-if(!fs.existsSync('./assets')){
-    fs.mkdir('./assets', () => {
-        console.log('folder created succefull')
-    })
-}else{
-    fs.rmdir('./assets', (err) => {
-        if(err) 
-            console.log(err)
-        else
-            console.log('file deleted succefull')
-    })
-}
+// if(!fs.existsSync('./assets')){
+//     fs.mkdir('./assets', () => {
+//         console.log('folder created succefull')
+//     })
+// }else{
+//     fs.rmdir('./assets', (err) => {
+//         if(err) 
+//             console.log(err)
+//         else
+//             console.log('file deleted succefull')
+//     })
+// }
 
 // Delete file
+
+// if(fs.existsSync('./docs/deleteme.txt')) {
+//     fs.unlink('./docs/deleteme.txt', (err) => {
+//         if(err) {
+//             console.log(err)
+//         }else{
+//             console.log('File deleted succefull')
+//         }
+//     })
+// }else{
+//     console.log("file doesn't exist")
+// }
+
+// Append on text on file
 
