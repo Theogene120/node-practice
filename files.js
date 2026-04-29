@@ -53,3 +53,24 @@ const { escape } = require('querystring')
 
 // Append on text on file
 
+if(fs.existsSync('./docs/blog1.txt')){
+    fs.appendFile('./docs/blog1.txt', '\nWelcome to node js learning with TH-I', (err) => {
+        if(err){
+            console.log(err)
+        }
+        
+        console.log('Text appended succefull')
+    })
+}else{
+    console.log('File does not exist')
+}
+
+// Read files
+
+fs.readdir('./docs', (err, files) => {
+    if(err){
+        console.log(err)
+    }
+    console.log(files)
+})
+
