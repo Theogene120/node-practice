@@ -67,10 +67,10 @@ if(fs.existsSync('./docs/blog1.txt')){
 
 // Read files
 
-// fs.readdir('./docs', (err, files) => {
-//     if(err){
-//         console.log(err)
-//     }
-//     console.log(files)
-// })
+fs.readdir('./docs', (err, files) => {
+    if(err){
+        console.log(err)
+    }
+    console.log(files)
+})
 
