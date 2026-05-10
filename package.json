@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Theogene120/node-practice#readme",
   "description": "",
   "dependencies": {
+    "express": "^5.2.1",
     "lodash": "^4.18.1"
   }
 }
