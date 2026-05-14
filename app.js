@@ -9,6 +9,13 @@ app.set('view engine', 'ejs')
 // listen to request
 app.listen(3000) // 3000 is the port
 
+app.use((req, res) => {
+console.log('new request made: ');
+console. log("host: ", req.hostnane);
+console.log('path: ', req.path);
+console. log('method: ', req.method);
+})
+
 app.get('/',(req, res) => { 
     const blogs = [
         {title: 'Yoshi finds eggs', snippet: 'Lorem ipsum dolor sit amet consectetur'},
