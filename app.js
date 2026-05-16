@@ -3,18 +3,23 @@ const express = require('express') // this return the function
 // require morgan
 const morgan = require('morgan')
 
+// requere mongoose
+const mongoose = require('mongoose')
+
 const app = express() // creating an instance of the function 
 
 //  url to connect to database 
-const dbURL = 'mongodb://atlas-sql-6a0645d46733ead9178291b4-b6wfmr.a.query.mongodb.net/Node-tuts?ssl=true&authSource=admin'
+const dbURI = 'mongodb+srv://igiranezatheogene4_db_user:smart.theo@node-practice.ejagfpx.mongodb.net/Node-tuts?appName=Node-practice'
 
+mongoose.connect(dbURI)
+.then(res => app.listen(3000))
+.catch(err => console.log(err))
 
 // register view engine
-
 app.set('view engine', 'ejs')
 
 // listen to request
-app.listen(3000) // 3000 is the port
+// app.listen(3000) 
 
 // middleware and static file
 
