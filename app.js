@@ -1,10 +1,7 @@
 const express = require('express') // this return the function  
-
-// require morgan
 const morgan = require('morgan')
-
-// requere mongoose
 const mongoose = require('mongoose')
+const Blog = require('./models/blog')
 
 const app = express() // creating an instance of the function 
 
@@ -14,6 +11,50 @@ const dbURI = 'mongodb+srv://igiranezatheogene4_db_user:smart.theo@node-practice
 mongoose.connect(dbURI)
 .then(res => app.listen(3000))
 .catch(err => console.log(err))
+
+// mongoose and mongo sandbox routes
+
+/* app.get('/add-blog', (req, res) => {
+    const blog = new Blog({
+        title: 'New blog 2',
+        snippet: 'About my new blog',
+        body: 'More about my new blog'
+    })
+
+    blog.save()  //  for saving data to database and it is promise
+    .then(result => {
+        res.send(result)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+
+// get the blog stored
+
+app.get('/all-blog', (req, res) => {
+    Blog.find()
+    .then(result => {
+        res.send(result)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+
+// get single blog
+app.get('/single-blog', (req, res) => {
+    Blog.findById('6a08a5e595cc238dc58d7d81')
+    .then(result => {
+        res.send(result)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+}) 
+    
+*/
+
 
 // register view engine
 app.set('view engine', 'ejs')
@@ -30,12 +71,21 @@ app.use(morgan('dev'))
 
 
 app.get('/',(req, res) => { 
-    const blogs = [
-        {title: 'Yoshi finds eggs', snippet: 'Lorem ipsum dolor sit amet consectetur'},
-        {title: 'Mario finds stars', snippet: 'Lorem ipsum dolor sit amet consectetur'},
-        {title: 'How to defeat bowser', snippet: 'Lorem ipsum dolor sit amet consectetur'},
-    ]
-    res.render('index', {title: 'Home', blogs})
+    // const blogs = [
+    //     {title: 'Yoshi finds eggs', snippet: 'Lorem ipsum dolor sit amet consectetur'},
+    //     {title: 'Mario finds stars', snippet: 'Lorem ipsum dolor sit amet consectetur'},
+    //     {title: 'How to defeat bowser', snippet: 'Lorem ipsum dolor sit amet consectetur'},
+    // ]
+    // res.render('index', {title: 'Home', blogs})
+    res.redirect('/blogs')
+})
+
+app.get('/blogs', (req, res) => {
+    Blog.find().sort({createdAt: -1}) // sort on descending order
+    .then(result => {
+        res.render('index', {title: 'All bloges', blogs: result})
+    })
+    .catch(err => console.log(err))
 })
 
 // create about page path
