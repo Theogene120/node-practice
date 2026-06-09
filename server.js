@@ -3,7 +3,6 @@ const fs = require('fs')
 
 
 const server = http.createServer((req, res) => {
-    
 
     // set header content type
     res.setHeader('Content-Type', 'text/html')
@@ -12,7 +11,7 @@ const server = http.createServer((req, res) => {
     let path = './views/'
     switch(req.url){
         case '/':
-            path += 'index.html'
+            path += 'index.html' , './views/index.html'
             res.statusCode = 200
             break;
         case '/about':
