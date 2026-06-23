@@ -65,6 +65,7 @@ app.set('view engine', 'ejs')
 // middleware and static file
 
 app.use(express.static('public')) // this the folder contain all static files
+app.use(express.urlencoded({extended: true}))
 
 // call morgan
 app.use(morgan('dev'))
@@ -90,13 +91,46 @@ app.get('/blogs', (req, res) => {
 
 // create about page path
 
-app.get('/about',(req, res) => { 
-    res.render('about', {title: 'About'})
+app.post("/blogs", (req, res) => {
+    const blog = new Blog(req.body)
+    blog.save()
+    .then((result) => {
+        res.redirect("/blogs")
+    })
+    .catch(err => console.log(err))
 })
+
+app.get('/blogs/:id', (req, res) => {
+    const id = req.params.id
+    Blog.findById(id)
+    .then(result => {
+        res.render('details', {blog: result, title: 'Blogs Details'})
+    }).catch(err => {
+        console.log(err)
+    })
+})
+
+app.delete('/blogs/:id', (req, res) => {
+    const id = req.params.id
+
+    Blog.findByIdAndDelete(id)
+        .then(result => {
+            res.json({redirect: '/blogs'})
+        })
+        .catch(err => {
+            console.log(err)
+        })
+})
+
 
 app.get('/blogs/create',(req, res) => { 
     res.render('create', {title: 'Create'})
 })
+
+app.get('/about',(req, res) => { 
+    res.render('about', {title: 'About'})
+})
+
 
 // redirect
 
