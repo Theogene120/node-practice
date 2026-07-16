@@ -1,7 +1,8 @@
 const express = require('express') // this return the function  
 const morgan = require('morgan')
 const mongoose = require('mongoose')
-const Blog = require('./models/blog')
+
+const blogRoutes = require("./routes/blogRoutes")
 
 const app = express() // creating an instance of the function 
 
@@ -81,56 +82,14 @@ app.get('/',(req, res) => {
     res.redirect('/blogs')
 })
 
-app.get('/blogs', (req, res) => {
-    Blog.find().sort({createdAt: -1}) // sort on descending order
-    .then(result => {
-        res.render('index', {title: 'All bloges', blogs: result})
-    })
-    .catch(err => console.log(err))
-})
 
-// create about page path
+// blog routes
 
-app.post("/blogs", (req, res) => {
-    const blog = new Blog(req.body)
-    blog.save()
-    .then((result) => {
-        res.redirect("/blogs")
-    })
-    .catch(err => console.log(err))
-})
-
-app.get('/blogs/:id', (req, res) => {
-    const id = req.params.id
-    Blog.findById(id)
-    .then(result => {
-        res.render('details', {blog: result, title: 'Blogs Details'})
-    }).catch(err => {
-        console.log(err)
-    })
-})
-
-app.delete('/blogs/:id', (req, res) => {
-    const id = req.params.id
-
-    Blog.findByIdAndDelete(id)
-        .then(result => {
-            res.json({redirect: '/blogs'})
-        })
-        .catch(err => {
-            console.log(err)
-        })
-})
-
-
-app.get('/blogs/create',(req, res) => { 
-    res.render('create', {title: 'Create'})
-})
+app.use("/blogs", blogRoutes)
 
 app.get('/about',(req, res) => { 
     res.render('about', {title: 'About'})
 })
-
 
 // redirect
 
